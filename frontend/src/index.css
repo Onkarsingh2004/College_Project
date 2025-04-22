@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Playwrite+HU:wght@100..400&display=swap');
+
+body{overflow-x: hidden;}
+*{font-family: "Nunito Sans", sans-serif !important;}
+h1,h2,h3,h4,h5,h6,.display-1,.display-2,.display-3,.display-4,.display-5,.display-6,.nav-link{font-family: "Lato", sans-serif !important;}
+.tag{ font-family: "Playwrite HU", cursive !important;}
+
+.border-theme{
+border: thin solid ;
+border-color: #CCBCAE !important;
+}
+
+
+.bg-theme{background-color:#53483F  !important; color:white !important;}
+.bg-light{background-color:#EFDBC4  !important; }
+.text-theme{color:#53483F  !important; }
+.text-light{color:#CCBCAE  !important; }
+ul{
+list-style: none;
+padding: 0px;
+margin: 0px;
+}
+.text-justify{
+text-align: justify;
+}
+
+.b1{
+background: url('../src/assets//img\ \(2\).png'); 
+background-repeat: no-repeat; 
+min-height: 48vh; 
+padding: 50px 0px;
+}
+.b2{
+background: url('../src/assets//img\ \(1\).png'); 
+background-repeat: no-repeat; 
+background-size: 100%; 
+min-height: 48vh; 
+background-position: center; 
+padding: 50px 0px; 
+margin-top: 30px; 
+}
+
+.banner{
+background-image: url('./assets/bread-crumb-img.png');
+background-size: cover;
+background-position: center;
+}
+

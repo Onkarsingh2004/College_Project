@@ -1,0 +1,178 @@
+Day 1- Backend Setup
+mkdir backend
+cd backend
+mkdir model
+mkdir routes
+mkdir public - product - category - user
+npm init -y
+npm i express mongoose bcrypt nodemailer multer morgan dotenv
+npm install -g nodemon
+index.js file
+
+
+
+----------------------------------------------------------------------------------------------------------
+
+Day2- Model
+cd backend
+cd model
+user - admin - category - address - product - cart - order - payment models all are created
+
+
+
+-----------------------------------------------------------------------------------------------------------
+
+Day3- routers
+
+.env file create and config
+creating routers file 
+import models in routers file 
+
+-----------------------------------------------------------------------------------------------------------
+
+Day4- Post
+create post route
+
+ router.post('/', (req, res) => {
+    let b=req.body;
+    let data={
+      category:b.category, 
+      image:b.image
+    }
+    const rec = new Category(data);
+    rec.save()
+    .then(() =>   res.send({'message':'Record Saved ','success':true}) )
+    .catch((err)=> res.send({'message':'Some Error Occured ','success':false}))
+  })
+
+-----------------------------------------------------------------------------------------------------------
+day5- put, get by id, delete by id
+
+  router.put('/:id', (req, res) => {
+    let b=req.body;
+    let data={
+      email:b.email,
+      phone:b.phone,
+      password:b.password,
+      first_name:b.first_name,
+      last_name:b.last_name
+    }
+    User.updateOne({_id:req.params.id},data).then((res.send({'message':'Record Is Updated','success':true}))).catch(err=>res.send({'message':'Some Error Occured ','success':false}))
+    })
+
+
+router.get('/id/:id', (req, res) => {
+  User.findOne({_id:req.params.id}).then((data=>res.send(data))).catch(err=>res.send("Some Error Occured"))
+  })
+
+
+  router.delete('/:id', (req, res) => {
+    Product.deleteOne({_id:req.params.id}).then((res.send({'message':'Record Is Deleted','success':true}))).catch(err=>res.send({'message':'Some Error Occured ','success':false}))
+    })
+
+-------------------------------------------------------------------------------------------------------------
+
+day6-- new route , model
+
+bcrypt
+const bcrypt = require('bcrypt');
+let pw=bcrypt.hashSync(b.password,10)
+Delete all route
+
+---------------------------------------------------------------------------------------------------------------
+
+day-7 new login post, and update password route and test
+
+ router.post('/login', (req, res) => {
+    let b=req.body;
+    User.findOne({email:b.email})
+    .then(user=>{
+      if(!user){
+        res.send({'message':'Incorrect Email','success':false,'user':null})
+      }
+      else{
+        if(bcrypt.compareSync(b.password,user.password)==false)
+          res.send({'message':'Incorrect Password','success':false,'user':null})
+          else
+          res.send({'message':'Login Success','success':true,'user':user})
+
+      }
+    })
+    .catch(err=>{
+      console.log(err);
+      
+      res.send("Some Error Occured")
+    })
+
+
+
+  })
+
+
+
+
+
+    router.put('/password/:id', (req, res) => {
+      let b=req.body;
+      let pw=bcrypt.hashSync(b.password,10)
+
+      User.updateOne({_id:req.params.id},{password:pw}).then((res.send({'message':'password Is Updated','success':true}))).catch(err=>res.send({'message':'Some Error Occured ','success':false}))
+      })
+
+
+
+
+create cart qty and status update route 
+
+router.put('/status/:id', (req, res) => {
+        let b=req.body;
+        let data={
+         status:b.status
+        }
+        Cart.updateOne({_id:req.params.id},data).then((res.send({'message':'Record Is Updated','success':true}))).catch(err=>res.send({'message':'Some Error Occured ','success':false}))
+        })
+
+-------------------------------------------------------------------------------------------------------------------
+
+day-8
+
+multer file upload
+
+const multer = require("multer");
+const path = require("path");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer(
+  { storage: storage },
+  { limits: { fileSize: 1024 * 1024 * 6 } },
+  function fileFilter(req, file, cb) {
+    let ext = path.extname(file.originalname);
+    if (ext !== ".jpg" && ext !== ".png" && ext !== ".jpeg") {
+      cb(new Error("Image Only" + file.originalname));
+    } else {
+      cb(null, true);
+    }
+  }
+);
+
+module.exports = upload;
+
+
+-------------------------------------------------------------------------------------------------
+
+day9->
+route complete
+1) type
+2) address
+3) admin
+4) category
+5) contact
+
